@@ -2,7 +2,13 @@ package it.univr.gameoflife;
 
 public class Grid {
 	
-	class Cell {
+	Cell[][] cells;
+	
+	public Grid(int width, int height) {
 		
+	}
+	
+	class Cell {
+		//TODO
 	}
 }
