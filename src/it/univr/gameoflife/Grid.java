@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class Grid {
 	
-	Cell[][] cells;
+	private final Cell[][] cells;
 	
 	public Grid(int width, int height) {
 		cells = new Cell[height][width];
@@ -28,7 +28,7 @@ public class Grid {
 	
 	public class Cell {
 		
-		private Point coordinates;
+		private final Point coordinates;
 		private boolean alive;
 		
 		private Cell(int x, int y) {
