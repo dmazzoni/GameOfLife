@@ -24,7 +24,7 @@ public class Game {
 	
 	private class NextGeneration {
 	
-		private Integer i;
+		private int i;
 		private Grid current;
 		private Grid next;
 			
@@ -47,26 +47,35 @@ public class Game {
 			current = next;
 		}
 		
+		private synchronized int nextIndex() {
+			return i++;
+		}
+		
 		private class Slave extends Thread {
 			
 			@Override
 			public void run() {
 				int slaveIndex;
-				while(i < height * width) {
-					synchronized(i) {
-						slaveIndex = i++;
-					}
-					Point p = new Point((int)i / width, (int) i % width);
-					if(!(deadCellsCoordinates.contains(p)))
-						checkNeighbour(p);
+				while((slaveIndex = NextGeneration.this.nextIndex()) < height * width) {
+					Point p = new Point((int) slaveIndex / width, (int) slaveIndex % width);
+					if(!(deadCellsCoordinates.contains(p))) {
+						if(current.isAlive(p) && (countNeighbours(p) < 2 || countNeighbours(p) > 3))
+							next.changeState(p);
+						if((!(current.isAlive(p))) && countNeighbours(p) == 3)
+							next.changeState(p);
+					}	
 				}
 			}
 
-			private void checkNeighbour(Point p) {
+			private int countNeighbours(Point p) {
+				int count = 0;
 				for(int dx = -1; dx <= 1; dx++)
-					for(int dy = -1; dy <= 1; dy++)
-						if(p.x + dx > 0 && p.x + dx < XXXX && p.y + dy
-
+					for(int dy = -1; dy <= 1; dy++) {
+						Point pt = new Point(p.x + dx, p.y + dy);
+						if(pt.x >= 0 && pt.x < height && pt.y >= 0 && pt.y < width && current.isAlive(pt))
+							count++;
+					}
+				return count;
 			}
 		}
 		
