@@ -14,16 +14,21 @@ public class Grid {
 	}
 	
 	public boolean isAlive(int i, int j) {
-		//TODO
-		return false;
+		return cells[i][j].alive;
 	}
 	
 	public void changeState(int i, int j) {
-		//TODO
+		cells[i][j].alive = !cells[i][j].alive;
 	}
 	
 	public void insertShape(int i, int j, Shape shape) {
-		//TODO
+		int absX, absY;
+		for (Point p : shape) {
+			absX = p.x + j;
+			absY = p.y + i;
+			if (absX < cells[0].length && absY < cells.length)
+				cells[i][j].alive = true;
+		}
 	}
 	
 	public class Cell {
