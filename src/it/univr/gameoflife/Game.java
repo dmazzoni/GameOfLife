@@ -32,7 +32,6 @@ public class Game {
 			current = Game.this.grid;
 			next = new Grid(width, height);
 			
-		
 			Slave[] slaves = new Slave[numOfThreads];
 			for(int pos = 0; pos < slaves.length; pos++) {
 				slaves[pos] = new Slave();
