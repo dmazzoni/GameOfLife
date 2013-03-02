@@ -13,21 +13,21 @@ public class Grid {
 				cells[i][j] = new Cell(i, j);
 	}
 	
-	public boolean isAlive(int i, int j) {
-		return cells[i][j].alive;
+	public boolean isAlive(Point p) {
+		return cells[p.x][p.y].alive;
 	}
 	
-	public void changeState(int i, int j) {
-		cells[i][j].alive = !cells[i][j].alive;
+	public void changeState(Point p) {
+		cells[p.x][p.y].alive = !cells[p.x][p.y].alive;
 	}
 	
-	public void insertShape(int i, int j, Shape shape) {
+	public void insertShape(Point point, Shape shape) {
 		int absX, absY;
-		for (Point p : shape) {
-			absX = p.x + j;
-			absY = p.y + i;
-			if (absX < cells[0].length && absY < cells.length)
-				cells[i][j].alive = true;
+		for (Point shapePoint : shape) {
+			absX = point.x + shapePoint.x;
+			absY = point.y + shapePoint.y;
+			if (absX < cells.length && absY < cells[0].length)
+				cells[absX][absY].alive = true;
 		}
 	}
 	
