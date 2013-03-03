@@ -7,13 +7,13 @@ import java.util.Set;
 public class Game {
 	
 	private Grid grid;
-	private final Set<Point> deadCellsCoordinates;
+	private final Set<Point> deadCellCoordinates;
 	private int width;
 	private int height;
 
 	public Game(int width, int height) {
 		this.grid = new Grid(width, height);
-		this.deadCellsCoordinates = new HashSet<Point>();
+		this.deadCellCoordinates = new HashSet<Point>();
 		this.width = width;
 		this.height = height;
 	}
@@ -56,11 +56,10 @@ public class Game {
 			public void run() {
 				int slaveIndex;
 				while((slaveIndex = NextGeneration.this.nextIndex()) < height * width) {
-					Point p = new Point((int) slaveIndex / width, (int) slaveIndex % width);
-					if(!(deadCellsCoordinates.contains(p))) {
-						if(current.isAlive(p) && (countNeighbours(p) < 2 || countNeighbours(p) > 3))
-							next.changeState(p);
-						if((!(current.isAlive(p))) && countNeighbours(p) == 3)
+					Point p = new Point(slaveIndex / width, slaveIndex % width);
+					if(!(deadCellCoordinates.contains(p))) {
+						int neighbours = countNeighbours(p);
+						if (neighbours == 3 || (neighbours == 2 && current.isAlive(p)))
 							next.changeState(p);
 					}	
 				}
@@ -70,8 +69,8 @@ public class Game {
 				int count = 0;
 				for(int dx = -1; dx <= 1; dx++)
 					for(int dy = -1; dy <= 1; dy++) {
-						Point pt = new Point(p.x + dx, p.y + dy);
-						if(pt.x >= 0 && pt.x < height && pt.y >= 0 && pt.y < width && current.isAlive(pt))
+						Point neighbour = new Point(p.x + dx, p.y + dy);
+						if (neighbour.x >= 0 && neighbour.x < height && neighbour.y >= 0 && neighbour.y < width && current.isAlive(neighbour))
 							count++;
 					}
 				return count;
