@@ -25,11 +25,9 @@ public class Game {
 	private class NextGeneration {
 	
 		private int i;
-		private Grid current;
 		private Grid next;
 			
-		private NextGeneration (int numOfThreads) {
-			current = Game.this.grid;
+		private NextGeneration(int numOfThreads) {
 			next = new Grid(width, height);
 			
 			Slave[] slaves = new Slave[numOfThreads];
@@ -43,7 +41,7 @@ public class Game {
 					slave.join();
 				} catch(InterruptedException e) {}
 			
-			current = next;
+			Game.this.grid = next;
 		}
 		
 		private synchronized int nextIndex() {
@@ -54,12 +52,12 @@ public class Game {
 			
 			@Override
 			public void run() {
-				int slaveIndex;
-				while((slaveIndex = NextGeneration.this.nextIndex()) < height * width) {
+				int slaveIndex, limit = height * width;
+				while((slaveIndex = NextGeneration.this.nextIndex()) < limit) {
 					Point p = new Point(slaveIndex / width, slaveIndex % width);
 					if(!(deadCellCoordinates.contains(p))) {
 						int neighbours = countNeighbours(p);
-						if (neighbours == 3 || (neighbours == 2 && current.isAlive(p)))
+						if (neighbours == 3 || (neighbours == 2 && grid.isAlive(p)))
 							next.changeState(p);
 					}	
 				}
@@ -70,7 +68,7 @@ public class Game {
 				for(int dx = -1; dx <= 1; dx++)
 					for(int dy = -1; dy <= 1; dy++) {
 						Point neighbour = new Point(p.x + dx, p.y + dy);
-						if (neighbour.x >= 0 && neighbour.x < height && neighbour.y >= 0 && neighbour.y < width && current.isAlive(neighbour))
+						if ((dx != 0 || dy != 0) && neighbour.x >= 0 && neighbour.x < height && neighbour.y >= 0 && neighbour.y < width && grid.isAlive(neighbour))
 							count++;
 					}
 				return count;
