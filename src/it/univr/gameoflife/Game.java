@@ -25,7 +25,8 @@ public class Game {
 	private class NextGeneration {
 	
 		private int i;
-		private Grid next;
+		private final Grid next;
+		private final int limit = height * width;
 			
 		private NextGeneration(int numOfThreads) {
 			next = new Grid(width, height);
@@ -52,7 +53,7 @@ public class Game {
 			
 			@Override
 			public void run() {
-				int slaveIndex, limit = height * width;
+				int slaveIndex;
 				while((slaveIndex = NextGeneration.this.nextIndex()) < limit) {
 					Point p = new Point(slaveIndex / width, slaveIndex % width);
 					if(!(deadCellCoordinates.contains(p))) {
