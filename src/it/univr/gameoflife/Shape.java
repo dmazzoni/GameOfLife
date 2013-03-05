@@ -13,6 +13,10 @@ public class Shape implements Iterable<Point> {
 		this.points = points;
 	}
 	
+	public String getName() {
+		return this.name;
+	}
+	
 	@Override
 	public Iterator<Point> iterator() {
 		return new Iterator<Point>(){

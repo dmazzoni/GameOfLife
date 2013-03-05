@@ -22,13 +22,13 @@ public class Game {
 		return this.grid;
 	}
 	
-	private class NextGeneration {
+	public class NextGeneration {
 	
 		private int i;
 		private final Grid next;
 		private final int limit = height * width;
 			
-		private NextGeneration(int numOfThreads) {
+		public NextGeneration(int numOfThreads) {
 			next = new Grid(width, height);
 			
 			Slave[] slaves = new Slave[numOfThreads];
