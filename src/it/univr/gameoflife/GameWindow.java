@@ -22,7 +22,7 @@ public class GameWindow extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pane.setLayout(new BorderLayout());
 		pane.add(createToolBar(), BorderLayout.PAGE_START); 
-		pane.add(new GraphicGrid(), BorderLayout.CENTER);
+		pane.add(graphicGrid, BorderLayout.CENTER);
 		pane.add(createSlider(), BorderLayout.PAGE_END);
 		this.pack();
 		
