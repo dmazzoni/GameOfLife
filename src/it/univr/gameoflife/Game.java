@@ -1,8 +1,12 @@
 package it.univr.gameoflife;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.swing.JLabel;
 
 public class Game {
 	
@@ -76,6 +80,20 @@ public class Game {
 			}
 		}
 		
+	}
+	
+	public class GraphicGrid extends JLabel {
+		
+		public GraphicGrid(String description) {
+			super(description);
+			this.setBackground(Color.GRAY);
+			this.setOpaque(true);
+			this.setPreferredSize(new Dimension(720, 400));
+		}
+	
+		private void paintGrid() {
+			//TODO
+		}
 	}
 }
 

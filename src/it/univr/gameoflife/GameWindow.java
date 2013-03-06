@@ -1,5 +1,7 @@
 package it.univr.gameoflife;
 
+import it.univr.gameoflife.Game.GraphicGrid;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -15,15 +17,16 @@ public class GameWindow extends JFrame {
 		super("Game Of Life");
 		Container pane = this.getContentPane();
 
+		game = new Game(90, 50);
+		GraphicGrid label = game.new GraphicGrid("qui sopra disegneremo la griglia");
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pane.setLayout(new BorderLayout());
 		pane.add(createToolBar(), BorderLayout.PAGE_START); 
-		pane.add(createGridBackground(), BorderLayout.CENTER);
+		pane.add(label, BorderLayout.CENTER);
 		pane.add(createSlider(), BorderLayout.PAGE_END);
 		this.pack();
 		
-		game = new Game(90, 50);
-		paintGrid();
 	}
 	
 	public static void main(String[] args) {
@@ -36,22 +39,10 @@ public class GameWindow extends JFrame {
 		return toolBar;
 	}
 	
-	private JLabel createGridBackground() {
-		JLabel label = new JLabel("qui sopra disegneremo la griglia");
-		label.setBackground(Color.GRAY);
-		label.setOpaque(true);
-		label.setPreferredSize(new Dimension(720, 400));
-		return label;
-	}
-	
 	private JSlider createSlider() {
 		JSlider slider = new JSlider();
 		//TODO Implementazione ChangeListener
 		return slider;
-	}
-	
-	private void paintGrid() {
-		// TODO Auto-generated method stub	
 	}
 
 }
