@@ -82,19 +82,5 @@ public class Game {
 		}
 		
 	}
-	
-	public class GraphicGrid extends JLabel {
-		
-		public GraphicGrid(String description) {
-			super(description);
-			this.setBackground(Color.GRAY);
-			this.setOpaque(true);
-			this.setPreferredSize(new Dimension(720, 400));
-		}
-	
-		private void paintGrid() {
-			//TODO
-		}
-	}
 }
 
