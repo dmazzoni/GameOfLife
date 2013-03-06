@@ -1,5 +1,6 @@
 package it.univr.gameoflife;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 public class Grid {
@@ -8,11 +9,10 @@ public class Grid {
 	
 	/**
 	 * Constructs and initializes a grid of the specified size. All cells are initially dead.
-	 * @param width the number of columns
-	 * @param height the number of rows
+	 * @param size the size of the grid
 	 */
-	public Grid(int width, int height) {
-		cells = new boolean[height][width];
+	public Grid(Dimension size) {
+		cells = new boolean[size.height][size.width];
 	}
 	
 	/**
