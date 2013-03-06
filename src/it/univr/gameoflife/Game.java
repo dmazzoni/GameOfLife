@@ -1,14 +1,9 @@
 package it.univr.gameoflife;
 
-import java.awt.Color;
-
-
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.swing.JLabel;
 
 public class Game {
 	
@@ -24,6 +19,10 @@ public class Game {
 	
 	public Grid getGrid() {
 		return this.grid;
+	}
+	
+	public Dimension getSize() {
+		return this.size;            
 	}
 	
 	public class NextGeneration {
