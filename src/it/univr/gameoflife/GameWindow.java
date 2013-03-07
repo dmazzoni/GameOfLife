@@ -40,7 +40,6 @@ public class GameWindow extends JFrame {
 				final boolean previousState = started;
 				started = false;
 				synchronized (game) {
-					System.out.println("Resize in sezione critica");
 					final int updatedWidth = graphicGrid.getWidth() / (cellSize + 1);
 					final int updatedHeight = graphicGrid.getHeight() / (cellSize + 1);
 					game.resize(updatedWidth, updatedHeight);
@@ -146,14 +145,14 @@ public class GameWindow extends JFrame {
 		
 		@Override
 		public void run() {
-				while (started) {
-					synchronized (game) {
+				synchronized (game) {
+					while (started) {
 						game.new NextGeneration(numOfThreads);
+						graphicGrid.repaint();
+						try {
+							Thread.sleep(delay);
+						} catch (InterruptedException e) { }
 					}
-					graphicGrid.repaint();
-					try {
-						Thread.sleep(delay);
-					} catch (InterruptedException e) { }
 				}
 		}
 	}
