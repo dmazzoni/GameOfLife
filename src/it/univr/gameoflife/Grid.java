@@ -16,12 +16,34 @@ public class Grid {
 	}
 	
 	/**
+	 * Constructs and initializes a grid of the specified size, starting from another grid.
+	 * @param size the size of the grid
+	 * @param other the grid to start from
+	 */
+	public Grid(Dimension size, Grid other) {
+		cells = new boolean[size.height][size.width];
+		for (int i = 0; (i < size.height) && (i < other.cells.length); i++)
+			for (int j = 0; (j < size.width) && (j < other.cells[0].length); j++)
+				cells[i][j] = other.cells[i][j];
+	}
+	
+	/**
 	 * Determines if the cell at position <code>p</code> in this grid is alive.
 	 * @param p the point representing the coordinates of the cell.
 	 * @return <code>true</code> if the cell is alive, <code>false</code> otherwise.
 	 */
 	public boolean isAlive(Point p) {
 		return cells[p.x][p.y];
+	}
+	
+	/**
+	 * Determines if the cell at position <code>p</code> in this grid is alive.
+	 * @param i the row index
+	 * @param j the column index
+	 * @return <code>true</code> if the cell is alive, <code>false</code> otherwise.
+	 */
+	public boolean isAlive(int i, int j) {
+		return cells[i][j];
 	}
 	
 	/**

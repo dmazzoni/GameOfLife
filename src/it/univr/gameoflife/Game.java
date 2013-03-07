@@ -9,7 +9,7 @@ public class Game {
 	
 	private Grid grid;
 	private final Set<Point> deadCellCoordinates;
-	private final Dimension size;
+	private Dimension size;
 
 	public Game(int width, int height) {
 		this.size = new Dimension(width, height);
@@ -23,6 +23,11 @@ public class Game {
 	
 	public Dimension getSize() {
 		return this.size;            
+	}
+	
+	public void resize(int width, int height) {
+		this.size = new Dimension(width, height);
+		this.grid = new Grid(size, grid);
 	}
 	
 	public class NextGeneration {
