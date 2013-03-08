@@ -37,16 +37,11 @@ public class GameWindow extends JFrame {
 			
 			@Override
 			public void componentResized(ComponentEvent e) {
-				final boolean previousState = started;
-				started = false;
 				synchronized (game) {
 					final int updatedWidth = graphicGrid.getWidth() / (cellSize + 1);
 					final int updatedHeight = graphicGrid.getHeight() / (cellSize + 1);
 					game.resize(updatedWidth, updatedHeight);
 				}
-				started = previousState;
-				if (started == true) 
-					new Worker().start();
 			}
 
 			@Override
@@ -145,15 +140,15 @@ public class GameWindow extends JFrame {
 		
 		@Override
 		public void run() {
+			while (started) {
 				synchronized (game) {
-					while (started) {
-						game.new NextGeneration(numOfThreads);
-						graphicGrid.repaint();
-						try {
-							Thread.sleep(delay);
-						} catch (InterruptedException e) { }
-					}
+					game.new NextGeneration(numOfThreads);
+					graphicGrid.repaint();
 				}
+				try {
+					Thread.sleep(delay);
+				} catch (InterruptedException e) { }
+			}
 		}
 	}
 
