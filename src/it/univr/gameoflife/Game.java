@@ -9,7 +9,7 @@ import java.util.Set;
  * Stores a logical Game Of Life instance, and provides a concurrent generation calculator.
  * @author Giacomo Annaloro
  * @author Davide Mazzoni
- *
+ * 
  */
 public class Game {
 	
@@ -49,7 +49,7 @@ public class Game {
 	
 	/**
 	 * Returns the size of this game.
-	 * @return A {@link Dimension} objects that stores width and height of this game.
+	 * @return A {@link Dimension} object that stores width and height of this game.
 	 */
 	public Dimension getSize() {
 		return this.size;            
@@ -66,12 +66,30 @@ public class Game {
 		this.grid = new Grid(size, grid);
 	}
 	
+	/**
+	 * Computes the next generation of cells concurrently.
+	 */
 	public class NextGeneration {
-	
-		private int i;
+		
+		/**
+		 * Buffer used to store the next generation during computation.
+		 */
 		private final Grid next;
+		
+		/**
+		 * Identifies a unique cell in the linearized grid. Used to distribute load among worker threads.
+		 */
+		private int i;
+		
+		/**
+		 * The total number of new cell states to be computed.
+		 */
 		private final int limit = size.height * size.width;
-			
+		
+		/**
+		 * Computes the next generation using the specified number of threads.
+		 * @param numOfThreads the number of threads
+		 */
 		public NextGeneration(int numOfThreads) {
 			next = new Grid(size);
 			
@@ -89,6 +107,10 @@ public class Game {
 			Game.this.grid = next;
 		}
 		
+		/**
+		 * Assigns to each calling thread a unique cell index.
+		 * @return The index of the cell whose state the calling thread has to compute.
+		 */
 		private synchronized int nextIndex() {
 			return i++;
 		}
