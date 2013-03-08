@@ -5,26 +5,62 @@ import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Stores a logical Game Of Life instance, and provides a concurrent generation calculator.
+ * @author Giacomo Annaloro
+ * @author Davide Mazzoni
+ *
+ */
 public class Game {
 	
+	/**
+	 * Stores the current generation of cells.
+	 */
 	private Grid grid;
+	
+	/**
+	 * Stores the coordinates of permanently dead cells.
+	 */
 	private final Set<Point> deadCellCoordinates;
+	
+	/**
+	 * Stores the current width and height of the game.
+	 */
 	private Dimension size;
 
+	/**
+	 * Constructs and initializes a <code>Game</code> of the specified size.
+	 * @param width the number of columns
+	 * @param height the number of rows
+	 */
 	public Game(int width, int height) {
 		this.size = new Dimension(width, height);
 		this.grid = new Grid(size);
 		this.deadCellCoordinates = new HashSet<Point>();
 	}
 	
+	/**
+	 * Returns the cell grid of this game.
+	 * @return A {@link Grid} that stores the current generation of cells.
+	 */
 	public Grid getGrid() {
 		return this.grid;
 	}
 	
+	/**
+	 * Returns the size of this game.
+	 * @return A {@link Dimension} objects that stores width and height of this game.
+	 */
 	public Dimension getSize() {
 		return this.size;            
 	}
 	
+	/**
+	 * Resizes the current game to the specified width and height. 
+	 * The state of existing cells that fit into the new size is maintained. New cells, if any, are initially dead.
+	 * @param width the new number of columns
+	 * @param height the new number of rows
+	 */
 	public void resize(int width, int height) {
 		this.size = new Dimension(width, height);
 		this.grid = new Grid(size, grid);

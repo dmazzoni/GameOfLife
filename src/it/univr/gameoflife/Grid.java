@@ -3,12 +3,18 @@ package it.univr.gameoflife;
 import java.awt.Dimension;
 import java.awt.Point;
 
+/**
+ * Stores a logical grid of cells.
+ * @author Giacomo Annaloro
+ * @author Davide Mazzoni
+ *
+ */
 public class Grid {
 	
 	private final boolean[][] cells;
 	
 	/**
-	 * Constructs and initializes a grid of the specified size. All cells are initially dead.
+	 * Constructs and initializes a <code>Grid</code> of the specified size. All cells are initially dead.
 	 * @param size the size of the grid
 	 */
 	public Grid(Dimension size) {
@@ -16,7 +22,7 @@ public class Grid {
 	}
 	
 	/**
-	 * Constructs and initializes a grid of the specified size, starting from another grid.
+	 * Constructs and initializes a <code>grid</code> of the specified size, starting from another grid.
 	 * @param size the size of the grid
 	 * @param other the grid to start from
 	 */
