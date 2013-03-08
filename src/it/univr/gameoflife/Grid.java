@@ -55,7 +55,7 @@ public class Grid {
 	/**
 	 * Switches the cell at position <code>p</code> in this grid to the opposite state.
 	 * If the cell is alive it becomes dead, and vice versa.
-	 * @param p the point representing the coordinates of the cell.
+	 * @param p the <code>Point</code> representing the coordinates of the cell.
 	 */
 	public void changeState(Point p) {
 		cells[p.x][p.y] = !cells[p.x][p.y];

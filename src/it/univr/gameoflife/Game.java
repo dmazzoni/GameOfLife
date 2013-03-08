@@ -108,13 +108,19 @@ public class Game {
 		}
 		
 		/**
-		 * Assigns to each calling thread a unique cell index.
+		 * Assigns to each calling thread a unique cell index. This method is synchronized.
 		 * @return The index of the cell whose state the calling thread has to compute.
 		 */
 		private synchronized int nextIndex() {
 			return i++;
 		}
 		
+		/**
+		 * <code>Slave</code> threads compute the next generation of cells.
+		 * Each slave runs in a loop consisting of two phases: 
+		 * <ol><li>Calling the enclosing instance of {@link NextGeneration} to obtain a cell index.</li>
+		 * <li>Computing its next state and storing it in the buffer matrix.</li></ol>
+		 */
 		private class Slave extends Thread {
 			
 			@Override
@@ -130,6 +136,11 @@ public class Game {
 				}
 			}
 
+			/**
+			 * Returns the number of alive neighbours of the cell at position <code>p</code>
+			 * @param p the <code>Point</code> representing the coordinates of the cell.
+			 * @return The number of alive neighbours of the given cell in the current generation.
+			 */
 			private int countNeighbours(Point p) {
 				int count = 0;
 				for(int dx = -1; dx <= 1; dx++)
