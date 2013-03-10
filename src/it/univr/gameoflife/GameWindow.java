@@ -33,7 +33,7 @@ public class GameWindow extends JFrame {
 		pane.add(graphicGrid, BorderLayout.CENTER);
 		pane.add(createSlider(), BorderLayout.PAGE_END);
 		this.pack();
-		this.addComponentListener(new ComponentListener() {
+		this.addComponentListener(new ComponentAdapter() {
 			
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -43,15 +43,6 @@ public class GameWindow extends JFrame {
 					game.resize(updatedWidth, updatedHeight);
 				}
 			}
-
-			@Override
-			public void componentHidden(ComponentEvent arg0) {}
-
-			@Override
-			public void componentMoved(ComponentEvent arg0) {}
-
-			@Override
-			public void componentShown(ComponentEvent arg0) {}
 		});
 		
 		//TEST: CREIAMO UN GLIDER
