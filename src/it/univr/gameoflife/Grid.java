@@ -43,7 +43,7 @@ public class Grid {
 	}
 	
 	/**
-	 * Determines if the cell at position <code>p</code> in this grid is alive.
+	 * Determines if the cell at the specified coordinates in this grid is alive.
 	 * @param i the row index
 	 * @param j the column index
 	 * @return <code>true</code> if the cell is alive, <code>false</code> otherwise.
@@ -59,6 +59,16 @@ public class Grid {
 	 */
 	public void changeState(Point p) {
 		cells[p.x][p.y] = !cells[p.x][p.y];
+	}
+	
+	/**
+	 * Switches the cell at the specified coordinates in this grid to the opposite state.
+	 * If the cell is alive it becomes dead, and vice versa.
+	 * @param i the row index
+	 * @param j the column index
+	 */
+	public void changeState(int i, int j) {
+		cells[i][j] = !cells[i][j];
 	}
 	
 	/**

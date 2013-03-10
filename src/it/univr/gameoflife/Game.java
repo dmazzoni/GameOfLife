@@ -67,6 +67,15 @@ public class Game {
 	}
 	
 	/**
+	 * Marks the cell at the specified coordinates as permanently dead.
+	 * @param i the row index
+	 * @param j the column index
+	 */
+	public void markDeadCell(int i, int j) {
+		deadCellCoordinates.add(new Point(i, j));
+	}
+	
+	/**
 	 * Computes the next generation of cells concurrently.
 	 */
 	public class NextGeneration {

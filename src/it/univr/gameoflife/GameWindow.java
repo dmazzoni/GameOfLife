@@ -111,6 +111,18 @@ public class GameWindow extends JFrame {
 		private GraphicGrid() {
 			super();
 			this.setPreferredSize(new Dimension(game.getSize().width * (cellSize + 1), game.getSize().height * (cellSize + 1)));
+			this.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					if (started)
+						game.markDeadCell(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
+					else {
+						game.getGrid().changeState(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
+						graphicGrid.repaint();
+					}
+				}
+			});
 		}
 	
 		@Override
