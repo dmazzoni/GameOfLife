@@ -66,14 +66,12 @@ public class GameWindow extends JFrame {
 
 			@Override
             public void actionPerformed(ActionEvent e) {
-				if (started == false) {
-					started = true;
+				started = !started;
+				if (started == true) {
 					start.setText("Stop");
 					new Worker().start();
-				} else {
-					started = false;
+				} else
 					start.setText("Inizio");
-				}
             }                       
 		});
 		toolBar.add(start);
