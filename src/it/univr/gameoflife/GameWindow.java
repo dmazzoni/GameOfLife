@@ -102,19 +102,17 @@ public class GameWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				final int selectedIndex = zoomSelector.getSelectedIndex();
-				if(selectedIndex != 0) {
-					switch(selectedIndex) {
-						case 0: cellSize = 8; break;
-						case 1: cellSize = 10; break;
-						case 2: cellSize = 12; break;
-						default: ;
-					}
-					synchronized (game) {
-						game.resize(graphicGrid.getWidth() / (cellSize + 1), graphicGrid.getHeight() / (cellSize + 1));
-					}
-					if(!started)
-						graphicGrid.repaint();
+				switch(selectedIndex) {
+				case 0: cellSize = 8; break;
+				case 1: cellSize = 10; break;
+				case 2: cellSize = 12; break;
+				default: ;
 				}
+				synchronized (game) {
+					game.resize(graphicGrid.getWidth() / (cellSize + 1), graphicGrid.getHeight() / (cellSize + 1));
+				}
+				if(!started)
+					graphicGrid.repaint();
 			}
 		});
 		toolBar.add(zoomSelector);
