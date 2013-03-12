@@ -19,6 +19,13 @@ public class GameWindow extends JFrame {
 	private boolean started;
 	private final int numOfThreads = 2;
 	private int delay = 200;
+	private static final Shape[] shapes = new Shape[] {
+		new Shape("Aliante", new Point(0,0), new Point(0,1), new Point(0,2), new Point(1,0), new Point(2,1)),
+		new Shape("Astronave leggera", new Point(0,0), new Point(0,3), new Point(1,4), new Point(2,0), new Point(2,4), new Point(3,1),
+				new Point(3,2), new Point(3,3), new Point(3,4)),
+		new Shape("Blocco", new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)),
+		new Shape("Lampeggiatore", new Point(0,0), new Point(0,1), new Point(0,2))
+	};
 
 	public GameWindow() {
 		super("Game Of Life");
@@ -112,18 +119,20 @@ public class GameWindow extends JFrame {
 		});
 		toolBar.add(zoomSelector);
 
-		final JComboBox shapeSelector = new JComboBox(new String[]{"Scegli una forma e clicca sulla griglia per inserirla"});
+		final String[] shapeNames = new String[shapes.length + 1];
+		shapeNames[0] = "Scegli una forma e clicca sulla griglia per inserirla";
+		int i = 1;
+		for(Shape s : shapes)
+			shapeNames[i++] = s.getName();
+		final JComboBox shapeSelector = new JComboBox(shapeNames);
 		shapeSelector.setSelectedIndex(0);
 		shapeSelector.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				final int selectedIndex = shapeSelector.getSelectedIndex();
-				if(selectedIndex != 0) {
-					//inserimento
-					if(!started)
-						graphicGrid.repaint();
-				}
+				if(selectedIndex != 0) 
+					graphicGrid.selectedShape = shapes[selectedIndex - 1];
 			}
 		});
 		toolBar.add(shapeSelector); 
@@ -144,14 +153,22 @@ public class GameWindow extends JFrame {
 	
 	private class GraphicGrid extends JLabel {
 		
+		private Shape selectedShape;
+		
 		private GraphicGrid() {
-			super();
 			this.setPreferredSize(new Dimension(game.getSize().width * (cellSize + 1), game.getSize().height * (cellSize + 1)));
 			this.addMouseListener(new MouseAdapter() {
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if (started)
+					if (selectedShape != null) {
+						synchronized(game) {
+							game.getGrid().insertShape(new Point(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1)), selectedShape);
+						}
+						selectedShape = null;
+						graphicGrid.repaint();
+					}
+					else if (started) 
 						game.markDeadCell(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
 					else {
 						game.getGrid().changeState(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
