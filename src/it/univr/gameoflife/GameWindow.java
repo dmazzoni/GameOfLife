@@ -38,9 +38,7 @@ public class GameWindow extends JFrame {
 			@Override
 			public void componentResized(ComponentEvent e) {
 				synchronized (game) {
-					final int updatedWidth = graphicGrid.getWidth() / (cellSize + 1);
-					final int updatedHeight = graphicGrid.getHeight() / (cellSize + 1);
-					game.resize(updatedWidth, updatedHeight);
+					game.resize(graphicGrid.getWidth() / (cellSize + 1), graphicGrid.getHeight() / (cellSize + 1));
 				}
 			}
 		});
@@ -88,9 +86,47 @@ public class GameWindow extends JFrame {
             }                       
 		});
 		toolBar.add(step);
-		
 		toolBar.addSeparator();
+		
+		final JComboBox zoomSelector = new JComboBox(new String[]{"Piccolo", "Medio", "Grande"});
+		zoomSelector.setSelectedIndex(1);
+		zoomSelector.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final int selectedIndex = zoomSelector.getSelectedIndex();
+				if(selectedIndex != 0) {
+					switch(selectedIndex) {
+						case 0: cellSize = 8; break;
+						case 1: cellSize = 10; break;
+						case 2: cellSize = 12; break;
+						default: ;
+					}
+					synchronized (game) {
+						game.resize(graphicGrid.getWidth() / (cellSize + 1), graphicGrid.getHeight() / (cellSize + 1));
+					}
+					if(!started)
+						graphicGrid.repaint();
+				}
+			}
+		});
+		toolBar.add(zoomSelector);
 
+		final JComboBox shapeSelector = new JComboBox(new String[]{"Scegli una forma e clicca sulla griglia per inserirla"});
+		shapeSelector.setSelectedIndex(0);
+		shapeSelector.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final int selectedIndex = shapeSelector.getSelectedIndex();
+				if(selectedIndex != 0) {
+					//inserimento
+					if(!started)
+						graphicGrid.repaint();
+				}
+			}
+		});
+		toolBar.add(shapeSelector); 
 		return toolBar;
 	}
 	
@@ -131,10 +167,12 @@ public class GameWindow extends JFrame {
 			Dimension gameSize = game.getSize();
 			for (int i = 0; i < gameSize.height; i++)
 				for (int j = 0; j < gameSize.width; j++) {
-					g.setColor(gameGrid.isAlive(i, j) ? Color.YELLOW : Color.GRAY);
+					g.setColor(gameGrid.isAlive(i, j) ? Color.GREEN : Color.GRAY);
 					g.fillRect((cellSize + 1) * j, (cellSize + 1) * i, cellSize, cellSize);
 				}
 		}
+		
+		
 	}
 	
 	private class Worker extends Thread {
