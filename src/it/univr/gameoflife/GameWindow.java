@@ -13,7 +13,7 @@ import javax.swing.event.*;
 
 public class GameWindow extends JFrame {
 	
-	private final Game game;
+	private Game game;
 	private final GraphicGrid graphicGrid;
 	private int cellSize = 10;
 	private boolean started;
@@ -49,14 +49,6 @@ public class GameWindow extends JFrame {
 				}
 			}
 		});
-		
-		//TEST: CREIAMO UN GLIDER
-		game.getGrid().changeState(new Point(3,2));
-		game.getGrid().changeState(new Point(4,3));
-		game.getGrid().changeState(new Point(5,1));
-		game.getGrid().changeState(new Point(5,2));
-		game.getGrid().changeState(new Point(5,3));
-
 	}
 	
 	public static void main(String[] args) {
@@ -93,6 +85,19 @@ public class GameWindow extends JFrame {
             }                       
 		});
 		toolBar.add(step);
+		toolBar.addSeparator();
+		
+		final JButton reset = new JButton("Azzera");
+		reset.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game = new Game(graphicGrid.getWidth() / (cellSize + 1), graphicGrid.getHeight() / (cellSize + 1));
+				if (!started)
+					graphicGrid.repaint();
+			}
+		});
+		toolBar.add(reset);
 		toolBar.addSeparator();
 		
 		final JComboBox zoomSelector = new JComboBox(new String[]{"Piccolo", "Medio", "Grande"});
