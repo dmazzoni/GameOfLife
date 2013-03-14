@@ -31,9 +31,7 @@ public class Shape implements Iterable<Point> {
 	}
 	
 	/**
-	 * Determines if the cell at the specified coordinates in this grid is alive.
-	 * @param i the row index
-	 * @param j the column index
+	 * Allows outer classes to access the shape's name.
 	 * @return The name of the shape.
 	 */
 	public String getName() {
