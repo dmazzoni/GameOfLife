@@ -17,7 +17,7 @@ public class GameWindow extends JFrame {
 	private final GraphicGrid graphicGrid;
 	private int cellSize = 10;
 	private boolean started;
-	private int numOfThreads = 2;
+	private int numOfThreads;
 	private int delay = 200;
 	private static final Shape[] shapes = new Shape[] {
 		new Shape("Aliante", new Point(0,0), new Point(0,1), new Point(0,2), new Point(1,0), new Point(2,1)),
@@ -124,7 +124,7 @@ public class GameWindow extends JFrame {
 		toolBar.addSeparator();
 		
 		final JComboBox numThreadSelector = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
-		zoomSelector.setSelectedIndex(0);
+		zoomSelector.setSelectedIndex(1);
 		zoomSelector.addActionListener(new ActionListener() {
 			
 			@Override
