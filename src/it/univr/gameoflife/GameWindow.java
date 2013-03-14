@@ -57,7 +57,10 @@ public class GameWindow extends JFrame {
 		new Shape("Astronave leggera", new Point(0,0), new Point(0,3), new Point(1,4), new Point(2,0), new Point(2,4), new Point(3,1),
 				new Point(3,2), new Point(3,3), new Point(3,4)),
 		new Shape("Blocco", new Point(0,0), new Point(0,1), new Point(1,0), new Point(1,1)),
-		new Shape("Lampeggiatore", new Point(0,0), new Point(0,1), new Point(0,2))
+		new Shape("Ghianda", new Point(0,0), new Point(1,2), new Point(2,-1), new Point(2,0), new Point(2,3),
+				new Point(2,4), new Point(2,5)),
+		new Shape("Lampeggiatore", new Point(0,0), new Point(0,1), new Point(0,2)),
+		new Shape("R-Pentomino", new Point(0,0), new Point(0,1), new Point(1,-1), new Point(1,0), new Point(2,0))
 	};
 
 	/**
@@ -66,15 +69,7 @@ public class GameWindow extends JFrame {
 	public GameWindow() {
 		super("Game Of Life");
 		Container pane = this.getContentPane();
-
-		/**
-		 * Stores the current logical game session.
-		 */
 		game = new Game(75, 45);
-		
-		/**
-		 * Stores the graphic grid.
-		 */
 		graphicGrid = new GraphicGrid();
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +97,7 @@ public class GameWindow extends JFrame {
 	}
 
 	/**
-	 * Creates a new toolbar containing the "start/stop" button, the "next" button and the three drop-down menu.
+	 * Creates a new toolbar containing the "start/stop" button, the "next" button and the three drop-down menus.
 	 * @return The created toolbar
 	 */
 	private JToolBar createToolBar() {
