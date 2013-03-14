@@ -10,7 +10,14 @@ import java.util.Iterator;
  */
 public class Shape implements Iterable<Point> {
 	
+	/**
+	 * Stores each point the shape is made of.
+	 */
 	private final Point[] points;
+	
+	/**
+	 * Stores the logical name of the shape.
+	 */
 	private final String name;
 	
 	/**
@@ -33,6 +40,9 @@ public class Shape implements Iterable<Point> {
 		return this.name;
 	}
 	
+	/**
+	 * Returns an iterator on the shape's points array.
+	 */
 	@Override
 	public Iterator<Point> iterator() {
 		return new Iterator<Point>(){
