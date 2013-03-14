@@ -72,15 +72,15 @@ public class Grid {
 	}
 	
 	/**
-	 * Inserts a shape into this grid, with its upper left corner positioned at the coordinates specified by <code>p</code>.
-	 * @param point the point representing the destination coordinates.
+	 * Inserts a shape into this grid, with its upper left corner positioned at <code>dest</code>.
+	 * @param dest the point representing the destination coordinates.
 	 * @param shape the shape to insert.
 	 */
-	public void insertShape(Point point, Shape shape) {
+	public void insertShape(Point dest, Shape shape) {
 		int absX, absY;
 		for (Point shapePoint : shape) {
-			absX = point.x + shapePoint.x;
-			absY = point.y + shapePoint.y;
+			absX = dest.x + shapePoint.x;
+			absY = dest.y + shapePoint.y;
 			if (absX < cells.length && absY < cells[0].length)
 				cells[absX][absY] = true;
 		}
