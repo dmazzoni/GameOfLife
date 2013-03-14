@@ -17,7 +17,7 @@ public class GameWindow extends JFrame {
 	private final GraphicGrid graphicGrid;
 	private int cellSize = 10;
 	private boolean started;
-	private int numOfThreads;
+	private int numOfThreads = 2;
 	private int delay = 200;
 	private static final Shape[] shapes = new Shape[] {
 		new Shape("Aliante", new Point(0,0), new Point(0,1), new Point(0,2), new Point(1,0), new Point(2,1)),
@@ -124,21 +124,13 @@ public class GameWindow extends JFrame {
 		toolBar.addSeparator();
 		
 		final JComboBox numThreadSelector = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
-		zoomSelector.setSelectedIndex(1);
-		zoomSelector.addActionListener(new ActionListener() {
+		numThreadSelector.setSelectedIndex(1);
+		numThreadSelector.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final int selectedIndex = numThreadSelector.getSelectedIndex();
 				synchronized (game) {
-					switch(selectedIndex) {
-					case 0: numOfThreads = 1; break;
-					case 1: numOfThreads = 2; break;
-					case 2: numOfThreads = 3; break;
-					case 3: numOfThreads = 4; break;
-					case 4: numOfThreads = 5; break;
-					default: ;
-					}
+					numOfThreads = numThreadSelector.getSelectedIndex() + 1;
 				}
 			}
 		});
