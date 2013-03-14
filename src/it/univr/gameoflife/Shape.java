@@ -16,7 +16,7 @@ public class Shape implements Iterable<Point> {
 	private final Point[] points;
 	
 	/**
-	 * Stores the logical name of the shape.
+	 * The logical name of the shape.
 	 */
 	private final String name;
 	

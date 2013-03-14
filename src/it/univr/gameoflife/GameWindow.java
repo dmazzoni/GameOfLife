@@ -13,12 +13,39 @@ import javax.swing.event.*;
 
 public class GameWindow extends JFrame {
 	
+	/**
+	 * Stores the logical part of the game.
+	 */
 	private Game game;
+	
+	/**
+	 * Stores the graphic matrix of cells.
+	 */
 	private final GraphicGrid graphicGrid;
+	
+	/**
+	 * The cell's height and width in pixels.
+	 */
 	private int cellSize = 10;
+	
+	/**
+	 * Stores the state of the game: running or idle.
+	 */
 	private boolean started;
+	
+	/**
+	 * The number of threads that execute the program.
+	 */
 	private int numOfThreads = 2;
+	
+	/**
+	 * The time to wait before creating a new generation.
+	 */
 	private int delay = 200;
+	
+	/**
+	 * A collection of predefined shapes in the game.
+	 */
 	private static final Shape[] shapes = new Shape[] {
 		new Shape("Aliante", new Point(0,0), new Point(0,1), new Point(0,2), new Point(1,0), new Point(2,1)),
 		new Shape("Astronave leggera", new Point(0,0), new Point(0,3), new Point(1,4), new Point(2,0), new Point(2,4), new Point(3,1),
@@ -27,11 +54,22 @@ public class GameWindow extends JFrame {
 		new Shape("Lampeggiatore", new Point(0,0), new Point(0,1), new Point(0,2))
 	};
 
+	/**
+	 * The window that displays the entire game.
+	 * Creates and adds to the content pane all the graphic components.
+	 */
 	public GameWindow() {
 		super("Game Of Life");
 		Container pane = this.getContentPane();
 
+		/**
+		 * Stores the current logical game session.
+		 */
 		game = new Game(75, 45);
+		
+		/**
+		 * Creates and stores the empty grid.
+		 */
 		graphicGrid = new GraphicGrid();
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,6 +89,9 @@ public class GameWindow extends JFrame {
 		});
 	}
 	
+	/**
+	 * The starting point of the program; initializes a new game window.
+	 */
 	public static void main(String[] args) {
 		new GameWindow().setVisible(true);
 	}
