@@ -11,6 +11,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+/**
+ * Stores the graphic appearance of the game.
+ * @author Davide Mazzoni
+ * @author Giacomo Annaloro
+ * 
+ */
 public class GameWindow extends JFrame {
 	
 	/**
@@ -55,8 +61,7 @@ public class GameWindow extends JFrame {
 	};
 
 	/**
-	 * The window that displays the entire game.
-	 * Creates and adds to the content pane all the graphic components.
+	 * Builds the window that displays the game creating and adding to the content pane all the graphic components.
 	 */
 	public GameWindow() {
 		super("Game Of Life");
@@ -68,7 +73,7 @@ public class GameWindow extends JFrame {
 		game = new Game(75, 45);
 		
 		/**
-		 * Creates and stores the empty grid.
+		 * Stores the graphic grid.
 		 */
 		graphicGrid = new GraphicGrid();
 		
@@ -96,6 +101,10 @@ public class GameWindow extends JFrame {
 		new GameWindow().setVisible(true);
 	}
 
+	/**
+	 * Creates a new toolbar containing the "start/stop" button, the "next" button and the three drop-down menu.
+	 * @return The created toolbar
+	 */
 	private JToolBar createToolBar() {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
