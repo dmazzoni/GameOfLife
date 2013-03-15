@@ -168,7 +168,7 @@ public class GameWindow extends JFrame {
 		toolBar.add(zoomSelector);
 		toolBar.addSeparator();
 		
-		final JComboBox numThreadSelector = new JComboBox(new String[]{"1", "2", "3", "4", "5"});
+		final JComboBox numThreadSelector = new JComboBox(new String[]{"1 thread", "2 thread", "3 thread", "4 thread", "5 thread"});
 		numThreadSelector.setSelectedIndex(1);
 		numThreadSelector.addActionListener(new ActionListener() {
 			
