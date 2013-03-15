@@ -97,8 +97,8 @@ public class GameWindow extends JFrame {
 	}
 
 	/**
-	 * Creates a new toolbar containing the "start/stop" button, the "next" button and the three drop-down menus.
-	 * @return The created toolbar
+	 * Creates a new toolbar containing the game controls.
+	 * @return The created toolbar.
 	 */
 	private JToolBar createToolBar() {
 		JToolBar toolBar = new JToolBar();
@@ -109,7 +109,7 @@ public class GameWindow extends JFrame {
 			@Override
             public void actionPerformed(ActionEvent e) {
 				started = !started;
-				if (started == true) {
+				if (started) {
 					start.setText("Stop");
 					new Worker().start();
 				} else
@@ -123,7 +123,7 @@ public class GameWindow extends JFrame {
 
 			@Override
             public void actionPerformed(ActionEvent e) {
-				if (started == false) {
+				if (!started) {
 					game.new NextGeneration(numOfThreads);
 					graphicGrid.repaint();
 				}
