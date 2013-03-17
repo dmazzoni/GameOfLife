@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- * Stores the graphic appearance of the game.
+ * The graphical user interface of the game.
  * @author Davide Mazzoni
  * @author Giacomo Annaloro
  * 
@@ -64,7 +64,7 @@ public class GameWindow extends JFrame {
 	};
 
 	/**
-	 * Builds the window that displays the game creating and adding to the content pane all the graphic components.
+	 * Constructs the window that displays the game, creating and adding to the content pane all the graphic components.
 	 */
 	public GameWindow() {
 		super("Game Of Life");
@@ -202,6 +202,10 @@ public class GameWindow extends JFrame {
 		return toolBar;
 	}
 	
+	/**
+	 * Creates the slider used to control game speed.
+	 * @return The created slider.
+	 */
 	private JSlider createSlider() {
 		final JSlider slider = new JSlider(0, 475, 300);
 		slider.addChangeListener(new ChangeListener() {
@@ -214,10 +218,19 @@ public class GameWindow extends JFrame {
 		return slider;
 	}
 	
+	/**
+	 * The graphical grid of cells.
+	 */
 	private class GraphicGrid extends JLabel {
 		
+		/**
+		 * Stores the {@link Shape} the user has chosen to insert in the grid.
+		 */
 		private Shape selectedShape;
 		
+		/**
+		 * Constructs and initializes a <code>GraphicGrid</code> of the needed size.
+		 */
 		private GraphicGrid() {
 			this.setPreferredSize(new Dimension(game.getSize().width * (cellSize + 1), game.getSize().height * (cellSize + 1)));
 			this.addMouseListener(new MouseAdapter() {
@@ -240,7 +253,10 @@ public class GameWindow extends JFrame {
 				}
 			});
 		}
-	
+		
+		/**
+		 * Paints the logical {@link Grid} of cells, according to their state.
+		 */
 		@Override
 		public void paintComponent(Graphics g) {
 			Grid gameGrid = game.getGrid();
