@@ -30,7 +30,7 @@ public class GameWindow extends JFrame {
 	private final GraphicGrid graphicGrid;
 	
 	/**
-	 * The cell's height and width in pixels.
+	 * The cells' height and width in pixels.
 	 */
 	private int cellSize = 10;
 	
@@ -53,6 +53,8 @@ public class GameWindow extends JFrame {
 	 * A collection of predefined shapes in the game.
 	 */
 	private static final Shape[] shapes = new Shape[] {
+		new Shape("23334M", new Point(0,0), new Point(1,-2), new Point(1, -1), new Point(2,-1), new Point(3,-2), new Point(3,1),
+				new Point(4,2), new Point(5,-1), new Point(5,2), new Point(6,0), new Point(6,2), new Point(7,-1)),
 		new Shape("Aliante", new Point(0,0), new Point(0,1), new Point(0,2), new Point(1,0), new Point(2,1)),
 		new Shape("Astronave leggera", new Point(0,0), new Point(0,3), new Point(1,4), new Point(2,0), new Point(2,4), new Point(3,1),
 				new Point(3,2), new Point(3,3), new Point(3,4)),

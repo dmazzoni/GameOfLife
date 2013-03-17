@@ -81,7 +81,7 @@ public class Grid {
 		for (Point shapePoint : shape) {
 			absX = dest.x + shapePoint.x;
 			absY = dest.y + shapePoint.y;
-			if (absX < cells.length && absY < cells[0].length)
+			if (absX >= 0 && absX < cells.length && absY >= 0 && absY < cells[0].length)
 				cells[absX][absY] = true;
 		}
 	}
