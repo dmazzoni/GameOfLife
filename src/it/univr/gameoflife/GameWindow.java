@@ -273,8 +273,15 @@ public class GameWindow extends JFrame {
 		
 	}
 	
+	/**
+	 * Calls {@link Game.NextGeneration} and repaints the {@link GraphicGrid}.
+	 */
 	private class Worker extends Thread {
 		
+		/**
+		 * While the game is running, calls {@link Game.NextGeneration} to update the logical grid of cells. 
+		 * It then repaints the <code>GraphicGrid</code> of the enclosing {@link GameWindow} instance.
+		 */
 		@Override
 		public void run() {
 			while (started) {
