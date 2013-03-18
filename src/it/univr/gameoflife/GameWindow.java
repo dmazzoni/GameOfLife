@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.*;
+import java.util.Hashtable;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -210,6 +211,11 @@ public class GameWindow extends JFrame {
 	 */
 	private JSlider createSlider() {
 		final JSlider slider = new JSlider(0, 475, 300);
+		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+		labelTable.put(new Integer(0), new JLabel("Lento"));
+		labelTable.put(new Integer(475), new JLabel("Veloce"));
+		slider.setLabelTable(labelTable);
+		slider.setPaintLabels(true);
 		slider.addChangeListener(new ChangeListener() {
 			
 			@Override
