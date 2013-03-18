@@ -77,9 +77,9 @@ public class GameWindow extends JFrame {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pane.setLayout(new BorderLayout());
-		pane.add(createToolBar(), BorderLayout.PAGE_START); 
+		pane.add(createToolBarTop(), BorderLayout.PAGE_START); 
 		pane.add(graphicGrid, BorderLayout.CENTER);
-		pane.add(createSlider(), BorderLayout.PAGE_END);
+		pane.add(createToolBarEnd(), BorderLayout.PAGE_END);
 		this.pack();
 		this.addComponentListener(new ComponentAdapter() {
 			
@@ -103,7 +103,7 @@ public class GameWindow extends JFrame {
 	 * Creates a new toolbar containing the game controls.
 	 * @return The created toolbar.
 	 */
-	private JToolBar createToolBar() {
+	private JToolBar createToolBarTop() {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		final JButton start = new JButton("Inizio");
@@ -206,14 +206,19 @@ public class GameWindow extends JFrame {
 	}
 	
 	/**
-	 * Creates the slider used to control game speed.
-	 * @return The created slider.
+	 * Creates a toolbar with the slider used to control game speed.
+	 * @return The created toolbar.
 	 */
-	private JSlider createSlider() {
+	private JToolBar createToolBarEnd() {
+		JToolBar toolBarEnd = new JToolBar();
+		toolBarEnd.setFloatable(false);
+		
+		toolBarEnd.addSeparator();
+		
 		final JSlider slider = new JSlider(0, 475, 300);
 		Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
 		labelTable.put(new Integer(0), new JLabel("Lento"));
-		labelTable.put(new Integer(475), new JLabel("Veloce"));
+		labelTable.put(new Integer(475), new JLabel("Veloce")); 
 		slider.setLabelTable(labelTable);
 		slider.setPaintLabels(true);
 		slider.addChangeListener(new ChangeListener() {
@@ -223,9 +228,11 @@ public class GameWindow extends JFrame {
 				delay = 500 - slider.getValue();
 			}
 		});
-		return slider;
+		toolBarEnd.add(slider);
+		toolBarEnd.addSeparator();
+		return toolBarEnd;
 	}
-	
+
 	/**
 	 * The graphical grid of cells.
 	 */
