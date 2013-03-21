@@ -2,8 +2,6 @@ package it.univr.gameoflife;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Stores a logical Game Of Life instance, and provides a concurrent generation calculator.
@@ -19,11 +17,6 @@ public class Game {
 	private Grid grid;
 	
 	/**
-	 * Stores the coordinates of permanently dead cells.
-	 */
-	private final Set<Point> deadCellCoordinates;
-	
-	/**
 	 * Stores the current width and height of the game.
 	 */
 	private Dimension size;
@@ -36,7 +29,6 @@ public class Game {
 	public Game(int width, int height) {
 		this.size = new Dimension(width, height);
 		this.grid = new Grid(size);
-		this.deadCellCoordinates = new HashSet<Point>();
 	}
 	
 	/**
@@ -63,16 +55,7 @@ public class Game {
 	 */
 	public void resize(int width, int height) {
 		this.size = new Dimension(width, height);
-		this.grid = new Grid(size, grid);
-	}
-	
-	/**
-	 * Marks the cell at the specified coordinates as permanently dead.
-	 * @param i the row index
-	 * @param j the column index
-	 */
-	public void markDeadCell(int i, int j) {
-		deadCellCoordinates.add(new Point(i, j));
+		this.grid = new Grid(size, grid, true);
 	}
 	
 	/**
@@ -100,7 +83,7 @@ public class Game {
 		 * @param numOfThreads the number of threads
 		 */
 		public NextGeneration(int numOfThreads) {
-			next = new Grid(size);
+			next = new Grid(size, grid, false);
 			
 			Slave[] slaves = new Slave[numOfThreads];
 			for(int pos = 0; pos < slaves.length; pos++) {
@@ -137,9 +120,10 @@ public class Game {
 				int slaveIndex;
 				while((slaveIndex = NextGeneration.this.nextIndex()) < limit) {
 					Point p = new Point(slaveIndex / size.width, slaveIndex % size.width);
-					if(!(deadCellCoordinates.contains(p))) {
+					CellState state = grid.getState(p);
+					if(state != CellState.PERMANENTLY_DEAD) {
 						int neighbours = countNeighbours(p);
-						if (neighbours == 3 || (neighbours == 2 && grid.isAlive(p)))
+						if (neighbours == 3 || (neighbours == 2 && state == CellState.ALIVE))
 							next.changeState(p);
 					}	
 				}
@@ -156,7 +140,7 @@ public class Game {
 					for(int dy = -1; dy <= 1; dy++) {
 						Point neighbour = new Point(p.x + dx, p.y + dy);
 						if ((dx != 0 || dy != 0) && neighbour.x >= 0 && neighbour.x < size.height 
-								&& neighbour.y >= 0 && neighbour.y < size.width && grid.isAlive(neighbour))
+								&& neighbour.y >= 0 && neighbour.y < size.width && grid.getState(neighbour) == CellState.ALIVE)
 							count++;
 					}
 				return count;

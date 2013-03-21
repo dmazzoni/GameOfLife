@@ -256,14 +256,12 @@ public class GameWindow extends JFrame {
 							game.getGrid().insertShape(new Point(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1)), selectedShape);
 						}
 						selectedShape = null;
-						graphicGrid.repaint();
 					}
 					else if (started) 
-						game.markDeadCell(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
-					else {
+						game.getGrid().markDeadCell(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
+					else 
 						game.getGrid().changeState(e.getY() / (cellSize + 1), e.getX() / (cellSize + 1));
-						graphicGrid.repaint();
-					}
+					graphicGrid.repaint();
 				}
 			});
 		}
@@ -277,7 +275,11 @@ public class GameWindow extends JFrame {
 			Dimension gameSize = game.getSize();
 			for (int i = 0; i < gameSize.height; i++)
 				for (int j = 0; j < gameSize.width; j++) {
-					g.setColor(gameGrid.isAlive(i, j) ? Color.GREEN : Color.GRAY);
+					switch(gameGrid.getState(i, j)) {
+					case ALIVE: g.setColor(Color.GREEN); break;
+					case DEAD: g.setColor(Color.GRAY); break;
+					case PERMANENTLY_DEAD: g.setColor(Color.RED.darker());
+					}
 					g.fillRect((cellSize + 1) * j, (cellSize + 1) * i, cellSize, cellSize);
 				}
 		}
