@@ -31,7 +31,7 @@ public class Shape implements Iterable<Point> {
 	}
 	
 	/**
-	 * Allows outer classes to access the shape's name.
+	 * Allows other classes to access the shape's name.
 	 * @return The name of the shape.
 	 */
 	public String getName() {

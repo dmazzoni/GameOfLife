@@ -13,6 +13,9 @@ import java.util.Set;
  */
 public class Grid {
 	
+	/**
+	 * Stores the cell matrix.
+	 */
 	private final boolean[][] cells;
 	
 	/**
@@ -30,7 +33,7 @@ public class Grid {
 	}
 	
 	/**
-	 * Constructs and initializes a <code>grid</code> of the specified size, starting from another grid.
+	 * Constructs and initializes a <code>Grid</code> of the specified size, starting from another grid.
 	 * @param size the size of the grid
 	 * @param other the grid to start from
 	 * @param keepStates if <code>true</code> initial cell states are copied from the passed grid; otherwise all the cells are initially dead
